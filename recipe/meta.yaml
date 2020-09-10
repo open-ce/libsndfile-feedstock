@@ -1,0 +1,48 @@
+{% set name = "libsndfile" %}
+{% set version = "1.0.28" %}
+{% set sha256 = "1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9" %}
+
+package:
+    name: {{ name|lower }}
+    version: {{ version }}
+
+source:
+    fn: {{ name }}-{{ version }}.tar.gz
+    url: http://www.mega-nerd.com/{{ name }}/files/{{ name }}-{{ version }}.tar.gz
+    sha256: {{ sha256 }}
+
+build:
+    number: 1 
+    string: py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
+    run_exports:
+        # https://abi-laboratory.pro/?view=timeline&l=libsndfile
+         - {{ pin_subpackage(name, max_pin="x.x") }}
+
+requirements:
+    build:
+      - {{ compiler('c') }}
+      - {{ compiler('cxx') }}
+      - make {{ make }}  
+    host:
+      - libflac
+      - libvorbis
+      - libogg {{ libogg }}
+    run:
+      - libflac
+      - libvorbis
+      - libogg {{ libogg }}
+test:
+  commands:
+    - test -f $PREFIX/lib/libsndfile.so  # [linux]
+
+about:
+    home: http://www.mega-nerd.com/libsndfile
+    dev_url: https://github.com/erikd/libsndfile
+    license: LGPL-2.1
+    license_family: LGPL
+    license_file: COPYING
+    summary: "libsndfile - a C library for reading and writing files containing sampled sound (such as MS Windows WAV and the Apple/SGI AIFF format) through one standard library interface"
+
+extra:
+  recipe-maintainers:
+    - open-ce/open-ce-dev-team
