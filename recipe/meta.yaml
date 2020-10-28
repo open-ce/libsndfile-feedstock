@@ -22,7 +22,7 @@ requirements:
     build:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
-      - make {{ make }}  
+      - make
     host:
       - libflac
       - libvorbis
