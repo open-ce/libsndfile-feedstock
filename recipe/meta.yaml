@@ -12,7 +12,7 @@ source:
     sha256: {{ sha256 }}
 
 build:
-    number: 1 
+    number: 2 
     string: py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
     run_exports:
         # https://abi-laboratory.pro/?view=timeline&l=libsndfile
@@ -22,7 +22,7 @@ requirements:
     build:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
-      - make {{ make }}  
+      - make
     host:
       - libflac
       - libvorbis
