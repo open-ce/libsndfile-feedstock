@@ -17,6 +17,9 @@ build:
     run_exports:
         # https://abi-laboratory.pro/?view=timeline&l=libsndfile
          - {{ pin_subpackage(name, max_pin="x.x") }}
+    ignore_run_exports:
+      - libgcc-ng
+      - libstdcxx-ng
 
 requirements:
     build:
@@ -37,11 +40,11 @@ requirements:
       - libflac
       - libvorbis
       - libogg {{ libogg }}
+      # Use pins to control cos6/cos7 match
+      - libgcc-ng  {{ libgcc }}
+      - libstdcxx-ng  {{ libstdcxx }}
+
 test:
-  requires:
-    # Use pins to control cos6/cos7 match
-    - libgcc-ng  {{ libgcc }}
-    - libstdcxx-ng  {{ libstdcxx }}
   commands:
     - test -f $PREFIX/lib/libsndfile.so  # [linux]
 
