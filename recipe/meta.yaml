@@ -12,14 +12,11 @@ source:
     sha256: {{ sha256 }}
 
 build:
-    number: 3 
+    number: 4
     string: py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
     run_exports:
         # https://abi-laboratory.pro/?view=timeline&l=libsndfile
          - {{ pin_subpackage(name, max_pin="x.x") }}
-    ignore_run_exports:
-      - libgcc-ng
-      - libstdcxx-ng
 
 requirements:
     build:
@@ -35,14 +32,11 @@ requirements:
       - libogg {{ libogg }}
       # Use pins to control cos6/cos7 match
       - libgcc-ng  {{ libgcc }}
-      - libstdcxx-ng  {{ libstdcxx }}      
+      - libstdcxx-ng  {{ libstdcxx }}
     run:
       - libflac
       - libvorbis
       - libogg {{ libogg }}
-      # Use pins to control cos6/cos7 match
-      - libgcc-ng  {{ libgcc }}
-      - libstdcxx-ng  {{ libstdcxx }}
 
 test:
   commands:
