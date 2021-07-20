@@ -40,6 +40,7 @@ requirements:
       - libflac
       - libvorbis                      # versioning handled by run_exports
       - libogg                         # versioning handled by run_exports
+      - libopus                        # versioning handled by run_exports
 
 test:
   commands:
