@@ -26,20 +26,20 @@ requirements:
       - libgcc-ng  {{ libgcc }}
       - libstdcxx-ng  {{ libstdcxx }}
       - make
-      - python
+      - python {{ python }}
       - pkg-config  # [unix]
     host:
       - libflac
-      - libvorbis
+      - libvorbis {{ libvorbis }}
       - libogg {{ libogg }}
-      - libopus
+      - libopus  {{ libopus }}
       # Use pins to control cos6/cos7 match
       - libgcc-ng  {{ libgcc }}
       - libstdcxx-ng  {{ libstdcxx }}
     run:
       - libflac
-      - libvorbis
-      - libogg {{ libogg }}
+      - libvorbis                      # versioning handled by run_exports
+      - libogg                         # versioning handled by run_exports
 
 test:
   commands:
