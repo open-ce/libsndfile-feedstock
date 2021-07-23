@@ -1,6 +1,6 @@
 {% set name = "libsndfile" %}
-{% set version = "1.0.28" %}
-{% set sha256 = "1ff33929f042fa333aed1e8923aa628c3ee9e1eb85512686c55092d1e5a9dfa9" %}
+{% set version = "1.0.31" %}
+{% set sha256 = "a8cfb1c09ea6e90eff4ca87322d4168cdbe5035cb48717b40bf77e751cc02163" %}
 
 package:
     name: {{ name|lower }}
@@ -8,11 +8,11 @@ package:
 
 source:
     fn: {{ name }}-{{ version }}.tar.gz
-    url: http://www.mega-nerd.com/{{ name }}/files/{{ name }}-{{ version }}.tar.gz
+    url: https://github.com/libsndfile/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.bz2
     sha256: {{ sha256 }}
 
 build:
-    number: 4
+    number: 1
     string: py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
     run_exports:
         # https://abi-laboratory.pro/?view=timeline&l=libsndfile
@@ -26,17 +26,21 @@ requirements:
       - libgcc-ng  {{ libgcc }}
       - libstdcxx-ng  {{ libstdcxx }}
       - make
+      - python {{ python }}
+      - pkg-config  # [unix]
     host:
       - libflac
-      - libvorbis
+      - libvorbis {{ libvorbis }}
       - libogg {{ libogg }}
+      - libopus  {{ libopus }}
       # Use pins to control cos6/cos7 match
       - libgcc-ng  {{ libgcc }}
       - libstdcxx-ng  {{ libstdcxx }}
     run:
       - libflac
-      - libvorbis
-      - libogg {{ libogg }}
+      - libvorbis                      # versioning handled by run_exports
+      - libogg                         # versioning handled by run_exports
+      - libopus                        # versioning handled by run_exports
 
 test:
   commands:
