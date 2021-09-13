@@ -22,6 +22,9 @@ requirements:
     build:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
+      # Use pins to control cos6/cos7 match
+      - libgcc-ng  {{ libgcc }}                             # [x86_64 and c_compiler_version == "7.2.*"]
+      - libstdcxx-ng  {{ libstdcxx }}                       # [x86_64 and c_compiler_version == "7.2.*"]
       - make
       - python {{ python }}
       - pkg-config  # [unix]
@@ -30,6 +33,9 @@ requirements:
       - libvorbis {{ libvorbis }}
       - libogg {{ libogg }}
       - libopus  {{ libopus }}
+      # Use pins to control cos6/cos7 match
+      - libgcc-ng  {{ libgcc }}                             # [x86_64 and c_compiler_version == "7.2.*"]
+      - libstdcxx-ng  {{ libstdcxx }}                       # [x86_64 and c_compiler_version == "7.2.*"]
     run:
       - libflac
       - libvorbis                      # versioning handled by run_exports
