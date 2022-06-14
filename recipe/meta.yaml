@@ -12,7 +12,7 @@ source:
     sha256: {{ sha256 }}
 
 build:
-    number: 3
+    number: 4
     string: py{{ python | replace(".", "") }}_{{ PKG_BUILDNUM }}
     run_exports:
         # https://abi-laboratory.pro/?view=timeline&l=libsndfile
@@ -20,11 +20,8 @@ build:
 
 requirements:
     build:
-      - {{ compiler('c') }}                                 #[ppc_arch != "p10"]
-      - {{ compiler('cxx') }}                               #[ppc_arch != "p10"]
-      # Use pins to control cos6/cos7 match
-      - libgcc-ng  {{ libgcc }}                             # [x86_64 and c_compiler_version == "7.2.*"]
-      - libstdcxx-ng  {{ libstdcxx }}                       # [x86_64 and c_compiler_version == "7.2.*"]
+      - {{ compiler('c') }}
+      - {{ compiler('cxx') }}
       - make
       - python {{ python }}
       - pkg-config  # [unix]
@@ -33,9 +30,6 @@ requirements:
       - libvorbis {{ libvorbis }}
       - libogg {{ libogg }}
       - libopus  {{ libopus }}
-      # Use pins to control cos6/cos7 match
-      - libgcc-ng  {{ libgcc }}                             # [x86_64 and c_compiler_version == "7.2.*"]
-      - libstdcxx-ng  {{ libstdcxx }}                       # [x86_64 and c_compiler_version == "7.2.*"]
     run:
       - libflac
       - libvorbis                      # versioning handled by run_exports
